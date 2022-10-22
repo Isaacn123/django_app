@@ -85,7 +85,7 @@ WSGI_APPLICATION = 'django_app.wsgi.application'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
 
-if not DEBUG:
+if IS_HEROKU:
 
         DATABASES= {
             'default': {
