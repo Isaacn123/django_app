@@ -28,7 +28,7 @@ DEBUG = str(os.environ.get('DEBUG')) == "1"
 
 ALLOWED_HOSTS = []
 if not DEBUG:
-    ALLOWED_HOSTS = ['https://djangosampledemo.herokuapp.com']
+    ALLOWED_HOSTS = ['.herokuapp.com']
 
 
 # Application definition
