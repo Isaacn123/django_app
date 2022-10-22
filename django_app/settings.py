@@ -28,9 +28,13 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = str(os.environ.get('DEBUG')) == "1"
 
-ALLOWED_HOSTS = []
-if not DEBUG:
-    ALLOWED_HOSTS = [os.environ.get('ALLOWED_HOSTS')]
+if IS_HEROKU:
+    ALLOWED_HOSTS= ['*']
+else:
+    ALLOWED_HOSTS = []
+
+if not IS_HEROKU:
+    DEBUG = True
 
 
 
@@ -81,7 +85,34 @@ WSGI_APPLICATION = 'django_app.wsgi.application'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
 
+if not DEBUG:
 
+        DATABASES= {
+            'default': {
+                    'ENGINE': 'django.db.backends.mysql',
+                    'OPTIONS':{
+                        'read_default_file': '/etc/mysql/my.cnf',
+                    },
+            }
+
+        }
+        prod_db= dj_database_url.config(env='JAWSDB_URL',conn_max_age=500)
+        DATABASES['default'].update(prod_db)
+else:
+    DATABASES = {
+            'default': {
+                'ENGINE': 'django.db.backends.mysql',
+                'OPTIONS':{
+                    'read_default_file': '/etc/mysql/my.cnf',
+                },
+                'NAME': 'django_app',
+                'USER': 'root',
+                'PASSWORD': '',
+                'HOST': '127.0.0.1',
+                'PORT': '3306'
+           
+         }
+    }
 
 
 
