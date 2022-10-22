@@ -24,11 +24,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECRET_KEY = 'django-insecure-+@#eo)0q152go4=%c!n+(vln$3=gpc%x4_y00vca#)0kb#t6mp'
 SECRET_KEY = os.environ.get('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = str(os.environ.get('DEBUG')) == False
+DEBUG = str(os.environ.get('DEBUG')) == "1"
 
 ALLOWED_HOSTS = []
-if DEBUG == False:
-    ALLOWED_HOSTS = [os.environ.get('ALLOWED_HOST')]
+if not DEBUG:
+    ALLOWED_HOSTS = ['https://djangosampledemo.herokuapp.com']
 
 
 # Application definition
